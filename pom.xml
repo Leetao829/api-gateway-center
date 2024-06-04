@@ -78,7 +78,7 @@
     </dependencies>
 
     <build>
-        <finalName>api-gateway-center-01</finalName>
+        <finalName>api-gateway-center</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

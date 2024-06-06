@@ -2,6 +2,7 @@ package com.ltb.gateway.center.test;
 
 import com.alibaba.fastjson.JSON;
 import com.ltb.gateway.center.application.IConfigManageService;
+import com.ltb.gateway.center.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import com.ltb.gateway.center.domain.manage.model.vo.GatewayServerVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,5 +33,11 @@ public class ConfigManageTest {
     public void test_registerGatewayNode(){
         boolean res = configManageService.registerGatewayServerNode("10001", "api-gateway-g4", "电商配送网关", "127.0.0.198");
         logger.info("注册节点结果为：{}",res);
+    }
+
+    @Test
+    public void test_queryApplicationSystemRichInfo(){
+        ApplicationSystemRichInfo applicationSystemRichInfo = configManageService.queryApplicationSystemRichInfo("api-gateway-g1");
+        logger.info("查询结果为:{}",JSON.toJSONString(applicationSystemRichInfo));
     }
 }

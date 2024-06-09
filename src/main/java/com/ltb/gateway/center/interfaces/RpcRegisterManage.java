@@ -1,5 +1,7 @@
 package com.ltb.gateway.center.interfaces;
 
+import com.ltb.gateway.center.application.IConfigManageService;
+import com.ltb.gateway.center.application.IMessageService;
 import com.ltb.gateway.center.application.IRegisterManageService;
 import com.ltb.gateway.center.domain.register.model.vo.ApplicationInterfaceMethodVO;
 import com.ltb.gateway.center.domain.register.model.vo.ApplicationInterfaceVO;
@@ -24,6 +26,12 @@ public class RpcRegisterManage {
 
     @Resource
     private IRegisterManageService registerManageService;
+
+    @Resource
+    private IConfigManageService configManageService;
+
+    @Resource
+    private IMessageService messageService;
 
     @PostMapping(value = "registerApplication", produces = "application/json;charset=utf-8")
     public Result<Boolean> registerApplication(@RequestParam String systemId,
@@ -100,6 +108,21 @@ public class RpcRegisterManage {
             logger.error("注册应用接口失败 systemId：{}", systemId, e);
             return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), false);
         }
+    }
+
+    @PostMapping(value = "registerEvent")
+    public Result<Boolean> registerEvent(@RequestParam String systemId) {
+        try {
+            logger.info("应用信息注册完成通知 systemId：{}", systemId);
+            // 推送注册消息
+            String gatewayId = configManageService.queryGatewayDistribution(systemId);
+            messageService.pushMessage(gatewayId, systemId);
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), true);
+        } catch (Exception e) {
+            logger.error("应用信息注册完成通知失败 systemId：{}", systemId, e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), false);
+        }
+
     }
 
 }

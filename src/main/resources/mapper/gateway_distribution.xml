@@ -13,7 +13,11 @@
     </resultMap>
 
     <select id="queryDistributionSystemIdList" parameterType="java.lang.String" resultType="java.lang.String">
-        select system_id from gateway_distribution
+        select system_id from gateway_distribution where gateway_id = #{gatewayId}
+    </select>
+
+    <select id="queryGatewayDistribution" parameterType="java.lang.String" resultType="java.lang.String">
+        select gateway_id from gateway_distribution where system_id = #{systemId}
     </select>
 
 </mapper>

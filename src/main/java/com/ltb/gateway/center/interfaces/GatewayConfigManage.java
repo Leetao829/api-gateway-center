@@ -1,6 +1,7 @@
 package com.ltb.gateway.center.interfaces;
 
 import com.ltb.gateway.center.application.IConfigManageService;
+import com.ltb.gateway.center.application.IMessageService;
 import com.ltb.gateway.center.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import com.ltb.gateway.center.domain.manage.model.vo.GatewayServerVO;
 import com.ltb.gateway.center.infrastructure.common.ResponseCode;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/wg/admin/config")
@@ -20,6 +22,9 @@ public class GatewayConfigManage {
 
     @Resource
     private IConfigManageService configManageService;
+
+    @Resource
+    private IMessageService messageService;
 
     @GetMapping(value = "queryServerConfig")
     public Result<List<GatewayServerVO>> queryServerConfig(){
@@ -46,16 +51,28 @@ public class GatewayConfigManage {
     }
 
     @PostMapping(value = "queryApplicationSystemRichInfo")
-    public Result<ApplicationSystemRichInfo> queryApplicationSystemRichInfo(@RequestParam String gatewayId) {
+    public Result<ApplicationSystemRichInfo> queryApplicationSystemRichInfo(@RequestParam String gatewayId,
+                                                                            @RequestParam String systemId) {
         try {
             logger.info("查询分配到网关下的待注册系统信息(系统、接口、方法) gatewayId：{}", gatewayId);
-            ApplicationSystemRichInfo applicationSystemRichInfo = configManageService.queryApplicationSystemRichInfo(gatewayId);
+            ApplicationSystemRichInfo applicationSystemRichInfo = configManageService.queryApplicationSystemRichInfo(gatewayId,systemId);
             return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), applicationSystemRichInfo);
         } catch (Exception e) {
             logger.error("查询分配到网关下的待注册系统信息(系统、接口、方法)异常 gatewayId：{}", gatewayId, e);
             return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
         }
+    }
 
+    @PostMapping(value = "queryRedisConfig")
+    public Result<Map<String,String>> queryRedisConfig() {
+        try {
+            logger.info("查询配置中心Redis配置信息");
+            Map<String, String> redisConfig = messageService.queryRedisConfig();
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), redisConfig);
+        } catch (Exception e) {
+            logger.error("查询配置中心Redis配置信息失败", e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
     }
 
 

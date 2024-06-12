@@ -3,7 +3,7 @@ package com.ltb.gateway.center.interfaces;
 import com.ltb.gateway.center.application.IConfigManageService;
 import com.ltb.gateway.center.application.IMessageService;
 import com.ltb.gateway.center.domain.manage.model.aggregates.ApplicationSystemRichInfo;
-import com.ltb.gateway.center.domain.manage.model.vo.GatewayServerVO;
+import com.ltb.gateway.center.domain.manage.model.vo.*;
 import com.ltb.gateway.center.infrastructure.common.ResponseCode;
 import com.ltb.gateway.center.infrastructure.common.Result;
 import org.slf4j.Logger;
@@ -38,6 +38,32 @@ public class GatewayConfigManage {
         }
     }
 
+    @GetMapping(value = "queryServerDetailConfig")
+    public Result<List<GatewayServerDetailVO>> queryServerDetailConfig(){
+        try {
+            logger.info("查询网关算力节点配置项信息");
+            List<GatewayServerDetailVO> gatewayServerVOList = configManageService.queryGatewayServerDetailList();
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), gatewayServerVOList);
+        } catch (Exception e) {
+            logger.error("查询网关算力节点配置项信息异常", e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
+
+    @GetMapping(value = "queryGatewayDistributionList")
+    public Result<List<GatewayDistributionVO>> queryGatewayDistributionList(){
+        try {
+            logger.info("查询网关分配配置项信息");
+            List<GatewayDistributionVO> gatewayServerVOList = configManageService.queryGatewayDistributionList();
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), gatewayServerVOList);
+        } catch (Exception e) {
+            logger.error("查询网关分配配置项信息异常", e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
+
+
+
     @PostMapping(value = "registerGateway")
     public Result<Boolean> registerGatewayServerNode(@RequestParam String groupId,@RequestParam String gatewayId,@RequestParam String gatewayName,@RequestParam String gatewayAddress){
         try {
@@ -49,6 +75,43 @@ public class GatewayConfigManage {
             return new Result<>(ResponseCode.UN_ERROR.getCode(), ResponseCode.UN_ERROR.getInfo(), false);
         }
     }
+
+    @PostMapping(value = "queryApplicationSystemList")
+    public Result<List<ApplicationSystemVO>> queryApplicationSystemList(){
+        try {
+            logger.info("查询应用服务配置项信息");
+            List<ApplicationSystemVO> gatewayServerVOList = configManageService.queryApplicationSystemList();
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), gatewayServerVOList);
+        } catch (Exception e) {
+            logger.error("查询应用服务配置项信息异常", e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
+
+    @PostMapping(value = "queryApplicationInterfaceList")
+    public Result<List<ApplicationInterfaceVO>> queryApplicationInterfaceList(){
+        try {
+            logger.info("查询应用接口配置项信息");
+            List<ApplicationInterfaceVO> gatewayServerVOList = configManageService.queryApplicationInterfaceList();
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), gatewayServerVOList);
+        } catch (Exception e) {
+            logger.error("查询应用接口配置项信息异常", e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
+
+    @PostMapping(value = "queryApplicationInterfaceMethodList")
+    public Result<List<ApplicationInterfaceMethodVO>> queryApplicationInterfaceMethodList(){
+        try {
+            logger.info("查询应用接口方法配置项信息");
+            List<ApplicationInterfaceMethodVO> gatewayServerVOList = configManageService.queryApplicationInterfaceMethodList();
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), gatewayServerVOList);
+        } catch (Exception e) {
+            logger.error("查询应用接口方法配置项信息异常", e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
+
 
     @PostMapping(value = "queryApplicationSystemRichInfo")
     public Result<ApplicationSystemRichInfo> queryApplicationSystemRichInfo(@RequestParam String gatewayId,

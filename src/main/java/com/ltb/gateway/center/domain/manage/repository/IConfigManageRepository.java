@@ -23,4 +23,8 @@ public interface IConfigManageRepository {
 
     String queryGatewayDistribution(String systemId);
 
+    List<GatewayServerDetailVO> queryGatewayServerDetailList();
+
+    List<GatewayDistributionVO> queryGatewayDistributionList();
+
 }

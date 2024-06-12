@@ -1,13 +1,13 @@
-package com.ltb.gateway.center.domain.manage.model.vo;
+package com.ltb.gateway.center.domain.operation.model.vo;
 
 import java.util.Date;
 
 /**
- * 网关服务明细
- *
+ * 网关服务明晰
  * @author leetao
  */
-public class GatewayServerDetailVO {
+public class GatewayServerDetailDataVO {
+
     /** 自增ID */
     private Integer id;
     /** 分组标识 */
@@ -24,6 +24,14 @@ public class GatewayServerDetailVO {
     private Date createTime;
     /** 更新时间 */
     private Date updateTime;
+
+    public GatewayServerDetailDataVO() {
+    }
+
+    public GatewayServerDetailDataVO(String groupId, String gatewayId) {
+        this.groupId = groupId;
+        this.gatewayId = gatewayId;
+    }
 
     public Integer getId() {
         return id;
@@ -88,5 +96,6 @@ public class GatewayServerDetailVO {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
 
 }

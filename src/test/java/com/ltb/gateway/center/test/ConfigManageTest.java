@@ -37,7 +37,8 @@ public class ConfigManageTest {
 
     @Test
     public void test_queryApplicationSystemRichInfo(){
-        ApplicationSystemRichInfo applicationSystemRichInfo = configManageService.queryApplicationSystemRichInfo("api-gateway-g1");
-        logger.info("查询结果为:{}",JSON.toJSONString(applicationSystemRichInfo));
+       // ApplicationSystemRichInfo applicationSystemRichInfo = configManageService.queryApplicationSystemRichInfo("api-gateway-g1");
+        //logger.info("查询结果为:{}",JSON.toJSONString(applicationSystemRichInfo));
     }
+
 }

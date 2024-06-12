@@ -3,23 +3,22 @@ package com.ltb.gateway.center.domain.manage.model.vo;
 import java.util.Date;
 
 /**
- * 网关服务明细
+ * 网关分配
  *
  * @author leetao
  */
-public class GatewayServerDetailVO {
-    /** 自增ID */
+public class GatewayDistributionVO {
+
+    /** 自增主键 */
     private Integer id;
     /** 分组标识 */
     private String groupId;
     /** 网关标识 */
     private String gatewayId;
-    /** 网关名称 */
-    private String gatewayName;
-    /** 网关地址 */
-    private String gatewayAddress;
-    /** 服务状态 */
-    private Integer status;
+    /** 系统标识 */
+    private String systemId;
+    /** 系统名称 */
+    private String systemName;
     /** 创建时间 */
     private Date createTime;
     /** 更新时间 */
@@ -49,28 +48,20 @@ public class GatewayServerDetailVO {
         this.gatewayId = gatewayId;
     }
 
-    public String getGatewayName() {
-        return gatewayName;
+    public String getSystemId() {
+        return systemId;
     }
 
-    public void setGatewayName(String gatewayName) {
-        this.gatewayName = gatewayName;
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 
-    public String getGatewayAddress() {
-        return gatewayAddress;
+    public String getSystemName() {
+        return systemName;
     }
 
-    public void setGatewayAddress(String gatewayAddress) {
-        this.gatewayAddress = gatewayAddress;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
     }
 
     public Date getCreateTime() {
